@@ -1,8 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Button from '@material-ui/core/Button';
-import MyPage from "../pages/testweb/mypage"
-import PageHome  from "../pages/dnd/PageHome"
+import MyPage from "../pages/mypage"
+import PageHome  from "../pages/dnd"
 
 const  App=()=> {
     return (

@@ -5,6 +5,8 @@ const webpack = require('webpack'); // 新增
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const devMode = process.env.NODE_ENV !== 'production'
 const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
+const CleanWebpackPlugin = require('clean-webpack-plugin')
+var DirectoryNamedWebpackPlugin = require("directory-named-webpack-plugin");
 module.exports = {
     mode: 'development',
     optimization: {
@@ -25,10 +27,14 @@ module.exports = {
         filename: "[name].bundle.js"
     },
     resolve: {
+        extensions: ['.js', '.jsx', '.scss', '.css'],
         alias: {
-            pages: path.resolve(__dirname, 'src/pages')
+            pages: path.resolve(__dirname, 'src/pages'),
+            components:path.resolve("src/component"),
         },
-        extensions: ['.js', '.jsx', '.scss', '.css']
+        plugins: [
+            new DirectoryNamedWebpackPlugin()
+        ]
     },
     module: {
         rules: [
@@ -100,6 +106,7 @@ module.exports = {
             filename: '[name].[chunkhash:8].css'
         }),
         new webpack.NamedModulesPlugin(), // 新增
+        new CleanWebpackPlugin(),
         new webpack.HotModuleReplacementPlugin() //新增
     ],
     devServer: {
@@ -107,7 +114,7 @@ module.exports = {
         host: 'localhost',
         compress: true,
         port: 8888,
-        open: true,
+        //open: true,
         proxy: {
             '/**': {
                 target: 'http://localhost:80/index.php',

@@ -41,7 +41,7 @@ const getListStyle = isDraggingOver => ({
   padding: grid,
   overflow: 'auto',
 });
-class PageHome extends Component {
+class Dnd extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -107,4 +107,4 @@ class PageHome extends Component {
     );
   }
 }
-export default  PageHome;
+export default  Dnd;

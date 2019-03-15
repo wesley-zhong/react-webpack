@@ -1,12 +1,11 @@
 const path = require("path")
-const glob = require('glob');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const htmlWebpackPlugin = require('html-webpack-plugin');
 const webpack = require('webpack'); // 新增
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const devMode = process.env.NODE_ENV !== 'production'
-const PurifyCSSPlugin = require("purifycss-webpack");
 const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
+const CleanWebpackPlugin = require('clean-webpack-plugin')
 module.exports = {
     mode: 'production',
     optimization: {
@@ -98,13 +97,11 @@ module.exports = {
                 removeStyleLinkTypeAttributes: true
             }
         }),
-
         new MiniCssExtractPlugin({
             filename: '[name].[chunkhash:8].css'
         }),
-
-
         new webpack.NamedModulesPlugin(), // 新增
+        new CleanWebpackPlugin(),
         new webpack.HotModuleReplacementPlugin() //新增
     ],
     devServer: {
@@ -112,6 +109,12 @@ module.exports = {
         host: 'localhost',
         compress: true,
         port: 8888,
-        open: true
+        open: true,
+        proxy: {
+            '/**': {
+                target: 'http://localhost:80/index.php',
+                secure: false
+            }
+        }
     }
 }
