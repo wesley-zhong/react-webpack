@@ -6,6 +6,7 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const devMode = process.env.NODE_ENV !== 'production'
 const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
 const CleanWebpackPlugin = require('clean-webpack-plugin')
+var DirectoryNamedWebpackPlugin = require("directory-named-webpack-plugin");
 module.exports = {
     mode: 'production',
     optimization: {
@@ -13,7 +14,12 @@ module.exports = {
             new UglifyJsPlugin({
                 cache: true,
                 parallel: true,
-                sourceMap: true // set to true if you want JS source maps
+                sourceMap: true ,// set to true if you want JS source maps,
+                uglifyOptions: {
+                    mangle: {
+                        keep_fnames: true
+                    }
+                }
             }),
             new OptimizeCSSAssetsPlugin({})
         ]
@@ -26,10 +32,14 @@ module.exports = {
         filename: "[name].bundle.js"
     },
     resolve: {
+        extensions: ['.js', '.jsx', '.scss', '.css'],
         alias: {
-            pages: path.resolve(__dirname, 'src/pages')
+            pages: path.resolve(__dirname, 'src/pages'),
+            components:path.resolve("src/component"),
         },
-        extensions: ['.js', '.jsx', '.scss', '.css']
+        plugins: [
+            new DirectoryNamedWebpackPlugin()
+        ]
     },
     module: {
         rules: [
@@ -109,7 +119,7 @@ module.exports = {
         host: 'localhost',
         compress: true,
         port: 8888,
-        open: true,
+        //open: true,
         proxy: {
             '/**': {
                 target: 'http://localhost:80/index.php',

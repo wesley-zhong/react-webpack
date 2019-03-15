@@ -1,5 +1,5 @@
 import React from 'react';
-import { Component, LogicRender } from 'refast';
+import { Component} from 'refast';
 import { withRouter } from 'react-router';
 import './PageHome.less';
 import * as logic from './logic';
