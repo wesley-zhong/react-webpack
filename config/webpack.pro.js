@@ -7,6 +7,8 @@ const devMode = process.env.NODE_ENV !== 'production'
 const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
 const CleanWebpackPlugin = require('clean-webpack-plugin')
 var DirectoryNamedWebpackPlugin = require("directory-named-webpack-plugin");
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
+
 module.exports = {
     mode: 'production',
     optimization: {
@@ -21,7 +23,6 @@ module.exports = {
                     }
                 }
             }),
-            new OptimizeCSSAssetsPlugin({})
         ]
     },
     entry: {
@@ -45,7 +46,6 @@ module.exports = {
         rules: [
             {
                 test: /\.(js|jsx)$/,
-                exclude: /node_modules/,
                 use: {
                     loader: 'babel-loader',
                     options: {
@@ -58,7 +58,7 @@ module.exports = {
                 test: /\.(jpg|png|gif|svg|pdf|ico)$/,
                 use: [
                     {
-                        loader: 'url-loader',
+                        loader: 'file-loader',
                         options: {
                             name: '[path][name].[ext]'
                         }
@@ -88,9 +88,7 @@ module.exports = {
                 test: /\.(sa|sc|c)ss$/,
                 use: [
                     devMode ? 'style-loader' : MiniCssExtractPlugin.loader,
-                    'css-loader',
-                    'postcss-loader',
-                    'sass-loader',
+                    'css-loader'
                 ],
             }
         ]
@@ -112,6 +110,9 @@ module.exports = {
         }),
         new webpack.NamedModulesPlugin(), // 新增
         new CleanWebpackPlugin(),
+        new OptimizeCSSAssetsPlugin(),
+        new ExtractTextPlugin('style.css'),
+        new webpack.DefinePlugin({ 'process.env.NODE_ENV': JSON.stringify('production') }),
         new webpack.HotModuleReplacementPlugin() //新增
     ],
     devServer: {

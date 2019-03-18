@@ -2,7 +2,7 @@ import React from 'react';
 import { Component} from 'refast';
 import { withRouter } from 'react-router';
 import './PageHome.less';
-import * as logic from './logic';
+import * as logic from '../jqxGridPage/logic';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 // fake data generator
 const getItems = count =>

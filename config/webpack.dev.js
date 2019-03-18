@@ -8,6 +8,8 @@ const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
 const CleanWebpackPlugin = require('clean-webpack-plugin')
 var DirectoryNamedWebpackPlugin = require("directory-named-webpack-plugin");
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const apiMocker = require('mocker-api');
+
 module.exports = {
     mode: 'development',
     optimization: {
@@ -15,7 +17,7 @@ module.exports = {
             new UglifyJsPlugin({
                 cache: true,
                 parallel: true,
-                sourceMap: true ,// set to true if you want JS source maps,
+                sourceMap: true,// set to true if you want JS source maps,
                 uglifyOptions: {
                     mangle: {
                         keep_fnames: true
@@ -35,7 +37,7 @@ module.exports = {
         extensions: ['.js', '.jsx', '.scss', '.css'],
         alias: {
             pages: path.resolve(__dirname, 'src/pages'),
-            components:path.resolve("src/component"),
+            components: path.resolve("src/component"),
         },
         plugins: [
             new DirectoryNamedWebpackPlugin()
@@ -45,7 +47,6 @@ module.exports = {
         rules: [
             {
                 test: /\.(js|jsx)$/,
-                exclude: /node_modules/,
                 use: {
                     loader: 'babel-loader',
                     options: {
@@ -88,9 +89,7 @@ module.exports = {
                 test: /\.(sa|sc|c)ss$/,
                 use: [
                     devMode ? 'style-loader' : MiniCssExtractPlugin.loader,
-                    'css-loader',
-                    'postcss-loader',
-                    'sass-loader',
+                    'css-loader'
                 ],
             }
         ]
@@ -116,17 +115,29 @@ module.exports = {
         new ExtractTextPlugin('style.css'),
         new webpack.HotModuleReplacementPlugin() //新增
     ],
-    // devServer: {
-    //     contentBase: path.resolve(__dirname, '../dist'),
-    //     host: 'localhost',
-    //     compress: true,
-    //     port: 8888,
-    //     //open: true,
-    //     proxy: {
-    //         '/**': {
-    //             target: 'http://localhost:80/index.php',
-    //             secure: false
-    //         }
-    //     }
-    // }
+    devServer: {
+        contentBase: path.resolve(__dirname, '../dist'),
+        host: 'localhost',
+        compress: true,
+       port: 8888,
+        open: true,
+        proxy: {
+            '/**': {
+                target: 'http://localhost:80/index.php',
+                secure: false
+            }
+        },
+
+        // for mock server
+
+        // before(app) {
+        //     apiMocker(app, path.resolve(__dirname,'../mock/api.js'), {
+        //         // proxy: {
+        //         //     '/mock/*': 'http://localhost:8888',
+        //         // },
+        //         changeHost: true
+        //     })
+        // }
+
+    }
 }
