@@ -8,7 +8,8 @@ import Refast from 'refast';
 import LogicRender from 'refast-logic-render';
 import { Message, Dialog, EmptyData } from 'uxcore';
 import { assign } from 'lodash';
-import JqgridPage from "../pages/jqxGridPage"
+import JqgridPage from "../pages/jqxGridPage";
+import  {Routes}  from "./routes.jsx";
 
 // Refast 文档请看 https://recore.github.io/refast-docs/
 Refast.use('fn', {
@@ -24,17 +25,16 @@ const Empty = EmptyData || (() => <div>暂无数据</div>);
 // 用来自定义Loading和Empty的样式
 assign(LogicRender.defaultProps, { Empty, Loading });
 
-const  App=()=> {
-    return (
-        <div>
-            <Button variant="contained" color="primary">
-                Hello World
-            </Button>
-            <PageHome />
-            <MyPage/>
-            <JqgridPage/>
-        </div>
-    );
-}
-export default App;
-ReactDOM.render(<App/>, document.querySelector('#app'));
+// const  App=()=> {
+//     return (
+//         <div>
+//             <Button variant="contained" color="primary">
+//                 Hello World
+//             </Button>
+//             <PageHome />
+//             <MyPage/>
+//             <JqgridPage/>
+//         </div>
+//     );
+// }
+ReactDOM.render(Routes, document.querySelector('#app'));
