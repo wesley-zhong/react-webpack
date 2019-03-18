@@ -22,7 +22,7 @@ export  default  class MyPage extends  Component {
                     { name: 'protein', type: 'string' }
                 ],
                 id: 'id',
-                url: '/mock/app/productions'
+                url: '/mock/productions'
             };
 
         let dataAdapter = new $.jqx.dataAdapter(source);

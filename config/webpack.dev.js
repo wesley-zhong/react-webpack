@@ -8,7 +8,7 @@ const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
 const CleanWebpackPlugin = require('clean-webpack-plugin')
 var DirectoryNamedWebpackPlugin = require("directory-named-webpack-plugin");
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
-const apiMocker = require('mocker-api');
+var apiMocker = require('connect-api-mocker');
 
 module.exports = {
     mode: 'development',
@@ -119,7 +119,7 @@ module.exports = {
         contentBase: path.resolve(__dirname, '../dist'),
         host: 'localhost',
         compress: true,
-       port: 8888,
+        port: 8888,
         open: true,
         proxy: {
             '/**': {
@@ -130,14 +130,10 @@ module.exports = {
 
         // for mock server
 
-        // before(app) {
-        //     apiMocker(app, path.resolve(__dirname,'../mock/api.js'), {
-        //         // proxy: {
-        //         //     '/mock/*': 'http://localhost:8888',
-        //         // },
-        //         changeHost: true
-        //     })
-        // }
+        setup: function (app) {
+            app.use('/mock', apiMocker('mock/data'));
+            nextOnNotFound: true
+        }
 
     }
 }
