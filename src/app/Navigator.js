@@ -93,12 +93,11 @@ const styles = theme => ({
 });
 
 
-
-
 class Navigator extends React.Component {
     constructor(props) {
         super(props)
     }
+
     groupClick(id) {
         for (var i = 0; i < categories.length; ++i) {
             if (categories[i].id == id.id) {
@@ -109,7 +108,7 @@ class Navigator extends React.Component {
     }
 
     render() {
-        const { classes , ...other} = this.props;
+        const {classes, ...other} = this.props;
         return (
             <Drawer variant="permanent" {...other}>
                 <List disablePadding>
@@ -139,7 +138,6 @@ class Navigator extends React.Component {
                                 >
                                     {id}
                                 </ListItemText>
-                                {console.log("ff")}
                                 {expand ? <ExpandLess/> : <ExpandMore/>}
                             </ListItem>
                             <Collapse in={expand} timeout="auto" unmountOnExit>
