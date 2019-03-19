@@ -51,7 +51,8 @@ module.exports = {
                     loader: 'babel-loader',
                     options: {
                         ignore: ['node_modules/jqwidgets-scripts/jqwidgets'],
-                        presets: ['@babel/preset-env', '@babel/preset-react']
+                        presets: ['@babel/preset-env', '@babel/preset-react'],
+                        plugins: ['@babel/plugin-proposal-class-properties']
                     }
                 },
             },

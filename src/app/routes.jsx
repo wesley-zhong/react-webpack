@@ -7,6 +7,7 @@ import {HashRouter, Route, Switch, Link} from 'react-router-dom';
 import Dnd from '../pages/dnd';
 import Jqgrid from '../pages/jqxGridPage';
 import Mypage from '../pages/mypage';
+import Paperbase from  "./Paperbase"
 
 // Define webpack publicPath at runtime
 // __webpack_public_path__ = ((s) => (
@@ -14,25 +15,9 @@ import Mypage from '../pages/mypage';
 // ))(document.getElementsByTagName('script'));
 
 // `ReactRouter`文档请看  https://github.com/ReactTraining/react-router/tree/v2.8.1
-const App = () => (
+const App = ({ children, location, routes }) => (
     <div>
-        haha
-        {/*<Menu mode="horizontal" selectedKeys={[routes[routes.length - 1].title]}>*/}
-        {/*<Menu.Item key="home">*/}
-        {/*<Link to={'/home'}>首页</Link>*/}
-        {/*</Menu.Item>*/}
-        {/*<Menu.Item key="demo">*/}
-        {/*<Link to={'/demo'}>DEMO</Link>*/}
-        {/*</Menu.Item>*/}
-        {/*<Menu.Item key="error">*/}
-        {/*<Link to={`/${Math.random().toString(32).slice(2)}`}>错误页面</Link>*/}
-        {/*</Menu.Item>*/}
-        {/*</Menu>*/}
-        {/*<div className="kuma-container kuma-container-1180">*/}
-        {/*{cloneElement(children || 'div', {*/}
-        {/*key: location.pathname,*/}
-        {/*})}*/}
-        {/*</div>*/}
+        <Paperbase />
     </div>
 );
 //
@@ -54,29 +39,12 @@ const App = () => (
 // };
 const BasicRoute = () => {
     return (<HashRouter>
-        <div>
-            <nav>
-                <ul>
-                    <li>
-                        <Link to="/">Home</Link>
-                    </li>
-                    <li>
-                        <Link to="/about/">About</Link>
-                    </li>
-                    <li>
-                        <Link to="/users/">Users</Link>
-                    </li>
-                </ul>
-            </nav>
-
             <Switch>
-                <Route exact path="/" component={App}/>
+                <Route exact path="/" component={Dnd}/>
                 <Route exact path="/about" component={Jqgrid}/>
                 <Route exact path="/repos" component={Mypage}/>
                 <Route component={App}/>
             </Switch>
-        </div>
     </HashRouter>)
-
 };
 export default BasicRoute;
