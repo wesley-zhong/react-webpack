@@ -1,9 +1,8 @@
-
-import React, { cloneElement } from 'react';
-import { Menu } from 'uxcore';
+import React, {cloneElement} from 'react';
+import {Menu} from 'uxcore';
 
 // `ReactRouter`文档请看  https://github.com/ReactTraining/react-router/tree/v2.8.1
-import {HashRouter as Router, Route, Link } from 'react-router-dom';
+import {HashRouter, Route, Switch, Link} from 'react-router-dom';
 
 import Dnd from '../pages/dnd';
 import Jqgrid from '../pages/jqxGridPage';
@@ -15,25 +14,26 @@ import Mypage from '../pages/mypage';
 // ))(document.getElementsByTagName('script'));
 
 // `ReactRouter`文档请看  https://github.com/ReactTraining/react-router/tree/v2.8.1
-const App = ({ children, location, routes }) => (
-  <div>
-    <Menu mode="horizontal" selectedKeys={[routes[routes.length - 1].title]}>
-      <Menu.Item key="home">
-        <Link to={'/home'} >首页</Link>
-      </Menu.Item>
-      <Menu.Item key="demo">
-        <Link to={'/demo'} >DEMO</Link>
-      </Menu.Item>
-      <Menu.Item key="error">
-        <Link to={`/${Math.random().toString(32).slice(2)}`} >错误页面</Link>
-      </Menu.Item>
-    </Menu>
-    <div className="kuma-container kuma-container-1180">
-      {cloneElement(children || 'div', {
-        key: location.pathname,
-      })}
+const App = () => (
+    <div>
+        haha
+        {/*<Menu mode="horizontal" selectedKeys={[routes[routes.length - 1].title]}>*/}
+        {/*<Menu.Item key="home">*/}
+        {/*<Link to={'/home'}>首页</Link>*/}
+        {/*</Menu.Item>*/}
+        {/*<Menu.Item key="demo">*/}
+        {/*<Link to={'/demo'}>DEMO</Link>*/}
+        {/*</Menu.Item>*/}
+        {/*<Menu.Item key="error">*/}
+        {/*<Link to={`/${Math.random().toString(32).slice(2)}`}>错误页面</Link>*/}
+        {/*</Menu.Item>*/}
+        {/*</Menu>*/}
+        {/*<div className="kuma-container kuma-container-1180">*/}
+        {/*{cloneElement(children || 'div', {*/}
+        {/*key: location.pathname,*/}
+        {/*})}*/}
+        {/*</div>*/}
     </div>
-  </div>
 );
 //
 // const rootRoute = {
@@ -52,14 +52,31 @@ const App = ({ children, location, routes }) => (
 //     ],
 //   }],
 // };
-const RootRoute = ()=>{
-    <Router >
-        <Route path="/" component={App}/>
-        <Route path="/about" component={Jqgrid}/>
-        <Route path="/repos" component={Mypage}/>
-    </Router>
-};
+const BasicRoute = () => {
+    return (<HashRouter>
+        <div>
+            <nav>
+                <ul>
+                    <li>
+                        <Link to="/">Home</Link>
+                    </li>
+                    <li>
+                        <Link to="/about/">About</Link>
+                    </li>
+                    <li>
+                        <Link to="/users/">Users</Link>
+                    </li>
+                </ul>
+            </nav>
 
-export default {
-  Routes: (<RootRoute/>),
+            <Switch>
+                <Route exact path="/" component={App}/>
+                <Route exact path="/about" component={Jqgrid}/>
+                <Route exact path="/repos" component={Mypage}/>
+                <Route component={App}/>
+            </Switch>
+        </div>
+    </HashRouter>)
+
 };
+export default BasicRoute;
