@@ -14,7 +14,7 @@ import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import  Header from "./Header"
-import Navigator from  "./Navigator"
+import Left from  "./Left"
 
 const drawerWidth = 240;
 
@@ -36,6 +36,12 @@ const styles = theme => ({
             duration: theme.transitions.duration.enteringScreen,
         }),
     },
+    itemCategory: {
+        backgroundColor: '#232f3e',
+        boxShadow: '0 -1px 0 #404854 inset',
+        paddingTop: 16,
+        paddingBottom: 16,
+    },
     menuButton: {
         marginLeft: 12,
         marginRight: 20,
@@ -49,6 +55,8 @@ const styles = theme => ({
     },
     drawerPaper: {
         width: drawerWidth,
+        backgroundColor: '#18202c',
+
     },
     drawerHeader: {
         display: 'flex',
@@ -89,7 +97,7 @@ class MainFrame extends React.Component {
     };
 
     render() {
-        const { classes, theme } = this.props;
+        const { classes, theme, ...other } = this.props;
         const { open } = this.state;
 
         return (
@@ -123,13 +131,14 @@ class MainFrame extends React.Component {
                     classes={{
                         paper: classes.drawerPaper,
                     }}
+
                 >
                     <div className={classes.drawerHeader}>
                         <IconButton onClick={this.handleDrawerClose}>
                             {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
                         </IconButton>
                     </div>
-                    <Navigator/>
+                    <Left/>
                 </Drawer>
                 <main
                     className={classNames(classes.content, {

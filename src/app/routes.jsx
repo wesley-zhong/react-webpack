@@ -44,7 +44,7 @@ const BasicRoute = () => {
             <Switch>
                 {/*<Route exact path="/" component={Dnd}/>*/}
                 <Route exact path="/about" component={Jqgrid}/>
-                <Route exact path="/repos" component={Mypage}/>
+                <Route exact path="/repos" component={Paperbase}/>
                 <Route component={App}/>
             </Switch>
     </HashRouter>)

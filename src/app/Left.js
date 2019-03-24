@@ -60,6 +60,7 @@ const styles = theme => ({
         paddingTop: 4,
         paddingBottom: 4,
         color: 'rgba(255, 255, 255, 0.7)',
+
     },
     itemCategory: {
         backgroundColor: '#232f3e',
@@ -94,7 +95,7 @@ const styles = theme => ({
 });
 
 
-class Navigator extends React.Component {
+class Left extends React.Component {
     constructor(props) {
         super(props)
     }
@@ -111,7 +112,8 @@ class Navigator extends React.Component {
     render() {
         const {classes, ...other} = this.props;
         return (
-            <Drawer variant="permanent" >
+
+            <div>
                 <List disablePadding>
                     <ListItem className={classNames(classes.firebase, classes.item, classes.itemCategory)}>
                         Paperbase
@@ -130,7 +132,7 @@ class Navigator extends React.Component {
                     </ListItem>
                     {categories.map(({id, expand, children}) => (
                         <React.Fragment key={id}>
-                            <ListItem className={classes.categoryHeader} onClick={this.groupClick.bind(this, {id})}>
+                            <ListItem className={classNames(classes.categoryHeader, classes.itemCategory)} onClick={this.groupClick.bind(this, {id})}>
                                 <ListItemText
                                     classes={{
                                         primary: classes.categoryHeaderPrimary,
@@ -173,13 +175,13 @@ class Navigator extends React.Component {
                         </React.Fragment>
                     ))}
                 </List>
-            </Drawer>
+            </div>
         );
     }
 }
 
-Navigator.propTypes = {
+Left.propTypes = {
     classes: PropTypes.object.isRequired,
 };
 
-export default  withStyles(styles)(Navigator);
+export default  withStyles(styles)(Left);
