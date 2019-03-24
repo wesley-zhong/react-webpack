@@ -107,4 +107,4 @@ class Dnd extends Component {
     );
   }
 }
-export default  Dnd;
+export default  withRouter(Dnd);

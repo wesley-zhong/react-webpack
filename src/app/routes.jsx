@@ -8,6 +8,7 @@ import Dnd from '../pages/dnd';
 import Jqgrid from '../pages/jqxGridPage';
 import Mypage from '../pages/mypage';
 import Paperbase from  "./Paperbase"
+import MainFrame from "./MainFrame"
 
 // Define webpack publicPath at runtime
 // __webpack_public_path__ = ((s) => (
@@ -17,7 +18,8 @@ import Paperbase from  "./Paperbase"
 // `ReactRouter`文档请看  https://github.com/ReactTraining/react-router/tree/v2.8.1
 const App = ({ children, location, routes }) => (
     <div>
-        <Paperbase />
+        {/*<Paperbase />*/}
+        <MainFrame/>
     </div>
 );
 //
@@ -40,7 +42,7 @@ const App = ({ children, location, routes }) => (
 const BasicRoute = () => {
     return (<HashRouter>
             <Switch>
-                <Route exact path="/" component={Dnd}/>
+                {/*<Route exact path="/" component={Dnd}/>*/}
                 <Route exact path="/about" component={Jqgrid}/>
                 <Route exact path="/repos" component={Mypage}/>
                 <Route component={App}/>

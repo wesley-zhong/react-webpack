@@ -15,7 +15,8 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Tooltip from '@material-ui/core/Tooltip';
 import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles';
-
+import Fab from '@material-ui/core/Fab';
+import Icon from '@material-ui/core/Icon';
 const lightColor = 'rgba(255, 255, 255, 0.7)';
 
 const styles = theme => ({
@@ -38,14 +39,22 @@ const styles = theme => ({
   button: {
     borderColor: lightColor,
   },
+  fab: {
+    margin: theme.spacing.unit,
+  },
+  extendedIcon: {
+    marginRight: theme.spacing.unit,
+  },
 });
 
 function Header(props) {
-  const { classes, onDrawerToggle } = props;
-
+  const { classes, onDrawerToggle, onExpand } = props;
   return (
     <React.Fragment>
       <AppBar color="primary" position="sticky" elevation={0}>
+        <Fab color="secondary" aria-label="Edit" className={classes.fab}  onClick = {onExpand}>
+          <Icon>edit_icon</Icon>
+        </Fab>
         <Toolbar>
           <Grid container spacing={8} alignItems="center">
             <Hidden smUp>
@@ -61,11 +70,7 @@ function Header(props) {
               </Grid>
             </Hidden>
             <Grid item xs />
-            <Grid item>
-              <Typography className={classes.link} component="a" href="#">
-                Go to docs
-              </Typography>
-            </Grid>
+
             <Grid item>
               <Tooltip title="Alerts • No alters">
                 <IconButton color="inherit">
@@ -78,28 +83,6 @@ function Header(props) {
                 <Avatar className={classes.avatar} src="/static/images/avatar/1.jpg" />
               </IconButton>
             </Grid>
-          </Grid>
-        </Toolbar>
-      </AppBar>
-      <AppBar
-        component="div"
-        className={classes.secondaryBar}
-        color="primary"
-        position="static"
-        elevation={0}
-      >
-        <Toolbar>
-          <Grid container alignItems="center" spacing={8}>
-            <Grid item xs>
-              <Typography color="inherit" variant="h5">
-                Authentication
-              </Typography>
-            </Grid>
-            <Grid item>
-              <Button className={classes.button} variant="outlined" color="inherit" size="small">
-                Web setup
-              </Button>
-            </Grid>
             <Grid item>
               <Tooltip title="Help">
                 <IconButton color="inherit">
@@ -110,6 +93,7 @@ function Header(props) {
           </Grid>
         </Toolbar>
       </AppBar>
+
       <AppBar
         component="div"
         className={classes.secondaryBar}

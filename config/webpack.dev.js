@@ -121,7 +121,7 @@ module.exports = {
         host: 'localhost',
         compress: true,
         port: 8888,
-        open: true,
+       // open: true,
         proxy: {
             '/**': {
                 target: 'http://localhost:80/index.php',

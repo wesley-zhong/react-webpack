@@ -22,7 +22,8 @@ import Collapse from '@material-ui/core/Collapse';
 import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
 import {Component} from "refast";
-
+import grey from '@material-ui/core/colors/grey'
+const white = grey[50];
 const categories = [
     {
         id: 'Develop',
@@ -138,7 +139,11 @@ class Navigator extends React.Component {
                                 >
                                     {id}
                                 </ListItemText>
-                                {expand ? <ExpandLess/> : <ExpandMore/>}
+                                {expand ? <ExpandLess classes={{
+                                    root: classes.categoryHeaderPrimary,
+                                }}/> : <ExpandMore  classes={{
+                                    root: classes.categoryHeaderPrimary,
+                                }}/>}
                             </ListItem>
                             <Collapse in={expand} timeout="auto" unmountOnExit>
                                 {children.map(({id: childId, icon, active}) => (
@@ -177,4 +182,4 @@ Navigator.propTypes = {
     classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(Navigator);
+export default  withStyles(styles)(Navigator);

@@ -157,15 +157,24 @@ class Paperbase extends React.Component {
     this.setState(state => ({ mobileOpen: !state.mobileOpen }));
   };
 
+  handleDexpan=() =>{
+    console.log(" !this.state.navExpand", !this.state.navExpand)
+    this.setState({navExpand : !this.state.navExpand})
+
+  }
+  printfLog(){
+    console.log(" na ", this.state.navExpand)
+  }
+
   render() {
     const { classes } = this.props;
-
+    this.printfLog()
     return (
       <MuiThemeProvider theme={theme}>
         <div className={classes.root}>
           <CssBaseline />
           <nav className={classes.drawer}>
-            <Hidden smUp implementation="js">
+            <Hidden smUp ={ this.state.navExpand} implementation="js">
               <Navigator
                 PaperProps={{ style: { width: drawerWidth } }}
                 variant="temporary"
@@ -178,7 +187,7 @@ class Paperbase extends React.Component {
             </Hidden>
           </nav>
           <div className={classes.appContent}>
-            <Header onDrawerToggle={this.handleDrawerToggle} />
+            <Header onDrawerToggle={this.handleDrawerToggle}  onExpand ={ this.handleDexpan}/>
             <main className={classes.mainContent}>
               <Content />
             </main>

@@ -3,9 +3,9 @@ import {Component} from  'refast'
 
 import "./jqxGridDemo.less"
 import * as logic from './logic';
-
+import { withRouter } from 'react-router';
 import JqxGrid,{jqx}  from 'jqwidgets-scripts/jqwidgets-react/react_jqxgrid'
-export  default  class MyPage extends  Component {
+class MyPage extends  Component {
     constructor(props) {
         super(props, logic);
     };
@@ -44,5 +44,5 @@ export  default  class MyPage extends  Component {
             </div>
         )
     }
-
 }
+export  default  withRouter(MyPage)
