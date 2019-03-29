@@ -1,15 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
+import {withStyles} from '@material-ui/core/styles';
 import SwipeableViews from 'react-swipeable-views';
 import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
+import WdTabpaneTab from '../components/wd_tabpane_tab/WdTabpaneTab'
 
-function TabContainer({ children, dir }) {
+function TabContainer({children, dir}) {
     return (
-        <Typography component="div" dir={dir} style={{ padding: 8 * 3 }}>
+        <Typography component="div" dir={dir} style={{padding: 8 * 3}}>
             {children}
         </Typography>
     );
@@ -33,19 +34,22 @@ class FullWidthTabs extends React.Component {
     };
 
     handleChange = (event, value) => {
-        this.setState({ value });
+        this.setState({value});
     };
 
     handleChangeIndex = index => {
-        this.setState({ value: index });
+        this.setState({value: index});
     };
 
-    getTable=()=>{
+    getTable = () => {
         return <div> hahaha</div>;
-}
-    render() {
-        const { classes, theme } = this.props;
+    }
+    createTable(tabName ){
+        return <WdTabpaneTab tab={tabName} onClose={this.handleChangeIndex}/>
+    }
 
+    render() {
+        const {classes, theme} = this.props;
         return (
             <div className={classes.root}>
                 <AppBar position="static" color="default">
@@ -56,9 +60,9 @@ class FullWidthTabs extends React.Component {
                         textColor="primary"
                         variant="fullWidth"
                     >
-                        <Tab label={this.getTable()}/>
-                        <Tab label="Item Two" />
-                        <Tab label="Item Three" />
+                        <Tab label={this.createTable("haha")}/>
+                        <Tab label="Item Two"/>
+                        <Tab label="Item Three"/>
                     </Tabs>
                 </AppBar>
                 <SwipeableViews
@@ -80,4 +84,4 @@ FullWidthTabs.propTypes = {
     theme: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles, { withTheme: true })(FullWidthTabs);
+export default withStyles(styles, {withTheme: true})(FullWidthTabs);
