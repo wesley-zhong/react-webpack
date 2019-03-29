@@ -52,12 +52,10 @@ function Header(props) {
   return (
     <React.Fragment>
       <AppBar color="primary" position="sticky" elevation={0}>
-        <Fab color="secondary" aria-label="Edit" className={classes.fab}  onClick = {onExpand}>
-          <Icon>edit_icon</Icon>
-        </Fab>
+
         <Toolbar>
           <Grid container spacing={8} alignItems="center">
-            <Hidden smUp>
+
               <Grid item>
                 <IconButton
                   color="inherit"
@@ -68,9 +66,8 @@ function Header(props) {
                   <MenuIcon />
                 </IconButton>
               </Grid>
-            </Hidden>
-            <Grid item xs />
 
+            <Grid item xs />
             <Grid item>
               <Tooltip title="Alerts • No alters">
                 <IconButton color="inherit">

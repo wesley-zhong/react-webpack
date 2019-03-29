@@ -23,6 +23,7 @@ import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
 import {Component} from "refast";
 import grey from '@material-ui/core/colors/grey'
+
 const white = grey[50];
 const categories = [
     {
@@ -108,10 +109,27 @@ class Navigator extends React.Component {
         this.setState({});
     }
 
+    handleItemClick(id) {
+        for (var i = 0; i < categories.length; ++i) {
+            let menuItems = categories[i].children;
+            for (var ii = 0; ii < menuItems.length; ++ii) {
+                menuItems[ii].active = false;
+                if (menuItems[ii].id == id) {
+                    menuItems[ii].active = true;
+                }
+            }
+        }
+        this.setState({});
+    }
+
     render() {
         const {classes, ...other} = this.props;
+        {
+            console.log("mmmmmm", other)
+        }
+
         return (
-            <Drawer variant="permanent" >
+            <Drawer variant="permanent" {...other} >
                 <List disablePadding>
                     <ListItem className={classNames(classes.firebase, classes.item, classes.itemCategory)}>
                         Paperbase
@@ -141,7 +159,7 @@ class Navigator extends React.Component {
                                 </ListItemText>
                                 {expand ? <ExpandLess classes={{
                                     root: classes.categoryHeaderPrimary,
-                                }}/> : <ExpandMore  classes={{
+                                }}/> : <ExpandMore classes={{
                                     root: classes.categoryHeaderPrimary,
                                 }}/>}
                             </ListItem>
@@ -156,6 +174,7 @@ class Navigator extends React.Component {
                                             classes.itemActionable,
                                             active && classes.itemActiveItem,
                                         )}
+                                        onClick={this.handleItemClick.bind(this,childId)}
                                     >
                                         <ListItemIcon>{icon}</ListItemIcon>
                                         <ListItemText
@@ -182,4 +201,4 @@ Navigator.propTypes = {
     classes: PropTypes.object.isRequired,
 };
 
-export default  withStyles(styles)(Navigator);
+export default withStyles(styles)(Navigator);

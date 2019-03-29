@@ -9,6 +9,7 @@ import Jqgrid from '../pages/jqxGridPage';
 import Mypage from '../pages/mypage';
 import Paperbase from  "./Paperbase"
 import MainFrame from "./MainFrame"
+import Drag  from  "./DragTabs"
 
 // Define webpack publicPath at runtime
 // __webpack_public_path__ = ((s) => (
@@ -45,6 +46,8 @@ const BasicRoute = () => {
                 {/*<Route exact path="/" component={Dnd}/>*/}
                 <Route exact path="/about" component={Jqgrid}/>
                 <Route exact path="/repos" component={Paperbase}/>
+                <Route exact path="/repos1" component={Drag}/>
+
                 <Route component={App}/>
             </Switch>
     </HashRouter>)

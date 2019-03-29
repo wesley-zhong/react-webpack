@@ -23,6 +23,7 @@ import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
 import {Component} from "refast";
 import grey from '@material-ui/core/colors/grey'
+
 const white = grey[50];
 const categories = [
     {
@@ -109,15 +110,25 @@ class Left extends React.Component {
         this.setState({});
     }
 
+    itemClick(id) {
+        for (var i = 0; i < categories.length; ++i) {
+            let menuItems = categories[i].children;
+            for (var ii = 0; ii < menuItems.length; ++ii) {
+                menuItems[ii].active = false;
+                if (menuItems[ii].id == id) {
+                    menuItems[ii].active = true;
+                }
+            }
+        }
+        this.setState({});
+    }
+
     render() {
         const {classes, ...other} = this.props;
         return (
 
             <div>
                 <List disablePadding>
-                    <ListItem className={classNames(classes.firebase, classes.item, classes.itemCategory)}>
-                        Paperbase
-                    </ListItem>
                     <ListItem className={classNames(classes.item, classes.itemCategory)}>
                         <ListItemIcon>
                             <HomeIcon/>
@@ -132,7 +143,8 @@ class Left extends React.Component {
                     </ListItem>
                     {categories.map(({id, expand, children}) => (
                         <React.Fragment key={id}>
-                            <ListItem className={classNames(classes.categoryHeader, classes.itemCategory)} onClick={this.groupClick.bind(this, {id})}>
+                            <ListItem className={classNames(classes.categoryHeader, classes.itemCategory)}
+                                      onClick={this.groupClick.bind(this, {id})}>
                                 <ListItemText
                                     classes={{
                                         primary: classes.categoryHeaderPrimary,
@@ -143,7 +155,7 @@ class Left extends React.Component {
                                 </ListItemText>
                                 {expand ? <ExpandLess classes={{
                                     root: classes.categoryHeaderPrimary,
-                                }}/> : <ExpandMore  classes={{
+                                }}/> : <ExpandMore classes={{
                                     root: classes.categoryHeaderPrimary,
                                 }}/>}
                             </ListItem>
@@ -158,8 +170,9 @@ class Left extends React.Component {
                                             classes.itemActionable,
                                             active && classes.itemActiveItem,
                                         )}
+                                        onClick={this.itemClick.bind(this, childId)}
                                     >
-                                        <ListItemIcon>{icon}</ListItemIcon>
+                                        <ListItemIcon >{icon}</ListItemIcon>
                                         <ListItemText
                                             classes={{
                                                 primary: classes.itemPrimary,
@@ -184,4 +197,4 @@ Left.propTypes = {
     classes: PropTypes.object.isRequired,
 };
 
-export default  withStyles(styles)(Left);
+export default withStyles(styles)(Left);

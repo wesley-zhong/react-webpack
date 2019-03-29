@@ -7,6 +7,8 @@ import Navigator from './Navigator';
 import Content from './Content';
 import Header from './Header';
 
+
+
 let theme = createMuiTheme({
   typography: {
     useNextVariants: true,
@@ -154,40 +156,30 @@ class Paperbase extends React.Component {
   };
 
   handleDrawerToggle = () => {
+    console.log("aaaaaaaaaa",!this.state.mobileOpen )
     this.setState(state => ({ mobileOpen: !state.mobileOpen }));
   };
 
   handleDexpan=() =>{
-    console.log(" !this.state.navExpand", !this.state.navExpand)
+    console.log("bbbbbbbbbbbbbbb")
+    console.log("this.state.navExpand", !this.state.navExpand)
     this.setState({navExpand : !this.state.navExpand})
+  }
 
-  }
-  printfLog(){
-    console.log(" na ", this.state.navExpand)
-  }
 
   render() {
     const { classes } = this.props;
-    this.printfLog()
     return (
       <MuiThemeProvider theme={theme}>
         <div className={classes.root}>
           <CssBaseline />
           <nav className={classes.drawer}>
-            <Hidden smUp ={ this.state.navExpand} implementation="js">
-              <Navigator
-                PaperProps={{ style: { width: drawerWidth } }}
-                variant="temporary"
-                open={this.state.mobileOpen}
-                onClose={this.handleDrawerToggle}
-              />
-            </Hidden>
-            <Hidden xsDown implementation="css">
+            <Hidden xsDown implementation="js">
               <Navigator PaperProps={{ style: { width: drawerWidth } }} />
             </Hidden>
           </nav>
           <div className={classes.appContent}>
-            <Header onDrawerToggle={this.handleDrawerToggle}  onExpand ={ this.handleDexpan}/>
+            <Header onDrawerToggle={this.handleDrawerToggle}  onExpand ={ this.handleDexpan.bind(this)}/>
             <main className={classes.mainContent}>
               <Content />
             </main>
