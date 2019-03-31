@@ -1,13 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-
+import "./app.less"
 import DB from './db';
 import Refast from 'refast';
 import LogicRender from 'refast-logic-render';
 import { Message, Dialog, EmptyData } from 'uxcore';
 import { assign } from 'lodash';
-import  RootRoute   from "./routes.jsx";
+import  {BasicRoute}   from "./routes.jsx";
 
 // Refast 文档请看 https://recore.github.io/refast-docs/
 Refast.use('fn', {
@@ -23,4 +23,4 @@ const Empty = EmptyData || (() => <div>暂无数据</div>);
 // 用来自定义Loading和Empty的样式
 assign(LogicRender.defaultProps, { Empty, Loading });
 
-ReactDOM.render(<RootRoute/>, document.querySelector('#app'));
+ReactDOM.render(<BasicRoute/>, document.querySelector('#app'));

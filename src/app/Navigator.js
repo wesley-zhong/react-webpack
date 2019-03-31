@@ -25,21 +25,22 @@ import {Component} from "refast";
 import grey from '@material-ui/core/colors/grey'
 
 const white = grey[50];
+// this should come from server
 const categories = [
     {
-        id: 'Develop',
+        id: '业务单据',
         expand: true,
         children: [
-            {id: 'Authentication', icon: <PeopleIcon/>, active: true},
-            {id: 'Database', icon: <DnsRoundedIcon/>},
-            {id: 'Storage', icon: <PermMediaOutlinedIcon/>},
-            {id: 'Hosting', icon: <PublicIcon/>},
-            {id: 'Functions', icon: <SettingsEthernetIcon/>},
-            {id: 'ML Kit', icon: <SettingsInputComponentIcon/>},
+            {id: '业务单据-form', icon: <PeopleIcon/>, active: true,},
+            {id: '拖拽', icon: <DnsRoundedIcon/>, path: "/dnd",},
+            {id: 'jqxGrid', icon: <PermMediaOutlinedIcon/>, path: "/jqxGrid"},
+            {id: 'uxCoreForm', icon: <PublicIcon/>,path: "/Uxform"},
+            {id: 'muiForm', icon: <SettingsEthernetIcon/>,path: "/Muiform"},
+            {id: 'ML Kit', icon: <SettingsInputComponentIcon/>,path: "/jqxGrid"},
         ],
     },
     {
-        id: 'Quality',
+        id: '基础资料',
         expand: false,
         children: [
             {id: 'Analytics', icon: <SettingsIcon/>},
@@ -110,29 +111,28 @@ class Navigator extends React.Component {
     }
 
     handleItemClick(id) {
+        const {onMenuItemClick} = this.props;
         for (var i = 0; i < categories.length; ++i) {
             let menuItems = categories[i].children;
             for (var ii = 0; ii < menuItems.length; ++ii) {
                 menuItems[ii].active = false;
                 if (menuItems[ii].id == id) {
                     menuItems[ii].active = true;
+                    onMenuItemClick(menuItems[ii])
                 }
             }
         }
+
         this.setState({});
     }
 
     render() {
-        const {classes, ...other} = this.props;
-        {
-            console.log("mmmmmm", other)
-        }
-
+        const {classes, onMenuItemClick, ...other} = this.props;
         return (
             <Drawer variant="permanent" {...other} >
                 <List disablePadding>
                     <ListItem className={classNames(classes.firebase, classes.item, classes.itemCategory)}>
-                        Paperbase
+                        简易云平台
                     </ListItem>
                     <ListItem className={classNames(classes.item, classes.itemCategory)}>
                         <ListItemIcon>
@@ -143,7 +143,7 @@ class Navigator extends React.Component {
                                 primary: classes.itemPrimary,
                             }}
                         >
-                            Project Overview
+                            系统菜单
                         </ListItemText>
                     </ListItem>
                     {categories.map(({id, expand, children}) => (
@@ -174,7 +174,7 @@ class Navigator extends React.Component {
                                             classes.itemActionable,
                                             active && classes.itemActiveItem,
                                         )}
-                                        onClick={this.handleItemClick.bind(this,childId)}
+                                        onClick={this.handleItemClick.bind(this, childId)}
                                     >
                                         <ListItemIcon>{icon}</ListItemIcon>
                                         <ListItemText

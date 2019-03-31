@@ -41,7 +41,7 @@ const getListStyle = isDraggingOver => ({
   padding: grid,
   overflow: 'auto',
 });
-class Dnd extends Component {
+class Dnd extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -107,4 +107,4 @@ class Dnd extends Component {
     );
   }
 }
-export default  withRouter(Dnd);
+export   default  Dnd;

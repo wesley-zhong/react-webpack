@@ -1,7 +1,6 @@
 import React from 'react';
 import {Component} from 'react';
 import Close from '@material-ui/icons/Close'
-import './WdTabpaneTab.less';
 import Grid from '@material-ui/core/Grid';
 
 class WdTabpaneTab extends Component {
@@ -16,12 +15,14 @@ class WdTabpaneTab extends Component {
         return (
             <Grid container
                   spacing={8}
-                  alignItems={"center"}>
-                <Grid item xs={7}>
+                  direction="row"
+                  justify="space-evenly"
+                  alignItems="center">
+                <Grid item xs={8}>
                     {tab}
                 </Grid>
-                <Grid item  xs = {1}>
-                    <Close fontSize={"small"} onClick={onClose.bind(t, tab)}/>
+                <Grid item  xs = {4} >
+                    <Close fontSize={"small"}  onClick={onClose.bind(t,index)}/>
                 </Grid>
             </Grid>
         );

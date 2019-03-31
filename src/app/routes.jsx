@@ -1,55 +1,53 @@
-import React, {cloneElement} from 'react';
-import {Menu} from 'uxcore';
+import React  from 'react';
 
 // `ReactRouter`文档请看  https://github.com/ReactTraining/react-router/tree/v2.8.1
 import {HashRouter, Route, Switch, Link} from 'react-router-dom';
 
 import Dnd from '../pages/dnd';
 import Jqgrid from '../pages/jqxGridPage';
-import Mypage from '../pages/mypage';
-import Paperbase from  "./Paperbase"
-import MainFrame from "./MainFrame"
-import Drag  from  "./DragTabs"
+import Uxform from '../pages/UxCoreForm';
+import Paperbase from "./Paperbase"
+import MuiForm from  "../pages/MuiForm"
 
-// Define webpack publicPath at runtime
-// __webpack_public_path__ = ((s) => (
-//   s[s.length - 1].src.replace(/\/[^\/]+$/, '/')
-// ))(document.getElementsByTagName('script'));
+
 
 // `ReactRouter`文档请看  https://github.com/ReactTraining/react-router/tree/v2.8.1
-const App = ({ children, location, routes }) => (
+const App = () => (
     <div>
         {/*<Paperbase />*/}
-        <MainFrame/>
+        <Paperbase />
     </div>
 );
 //
-// const rootRoute = {
-//   childRoutes: [{
-//     path: '/',
-//     component: App,
-//     // 这里可以设置首页跳转的地址
-//     indexRoute: { onEnter: (nextState, replace) => replace('/home') },
-//     childRoutes: [
-//       // 新建页面时，请注意更新此处的路由
-//       homeRoute,
-//       demoRoute,
-//       // error因为是泛匹配，所以要放到下面
-//       // 不然会覆盖前面的
-//       errorRoute,
-//     ],
-//   }],
-// };
+const rootRoute = [
+    {
+        path: "/jqxGrid",
+        component: <Jqgrid />
+    },
+
+    {
+        path: "/dnd",
+        component: <Dnd />
+    },
+    {
+        path:"/Uxform",
+        component:<Uxform/>
+    },
+    {
+        path:"/Muiform",
+        component:<MuiForm/>
+    }
+
+];
+
+
 const BasicRoute = () => {
     return (<HashRouter>
-            <Switch>
-                {/*<Route exact path="/" component={Dnd}/>*/}
-                <Route exact path="/about" component={Jqgrid}/>
-                <Route exact path="/repos" component={Paperbase}/>
-                <Route exact path="/repos1" component={Drag}/>
-
-                <Route component={App}/>
-            </Switch>
+        <Switch>
+            <Route  exact  path={"/dnd"} component ={Dnd}/>
+            <Route component={App} />
+        </Switch>
     </HashRouter>)
 };
-export default BasicRoute;
+
+export  {BasicRoute, rootRoute};
