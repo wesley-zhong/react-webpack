@@ -7,10 +7,11 @@ import Jqgrid from '../pages/jqxGridPage';
 import Uxform from '../pages/UxCoreForm';
 import Paperbase from "./Paperbase"
 import MuiForm from  "../pages/MuiForm"
+import MainFroma from "./Main"
 
 const App = () => (
     <div>
-        <Paperbase />
+        <MainFroma />
     </div>
 );
 
