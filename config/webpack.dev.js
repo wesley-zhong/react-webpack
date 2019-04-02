@@ -125,7 +125,7 @@ module.exports = {
        // open: true,
         proxy: {
             '/**': {
-                target: 'http://localhost:80/index.php',
+                target: 'http://localhost:80/',
                 secure: false
             }
         },

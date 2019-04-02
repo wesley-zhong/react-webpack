@@ -19,7 +19,6 @@ const rootRoute = [
         path: "/jqxGrid",
         component: <Jqgrid />
     },
-
     {
         path: "/dnd",
         component: <Dnd />
@@ -32,7 +31,6 @@ const rootRoute = [
         path:"/Muiform",
         component:<MuiForm/>
     }
-
 ];
 
 

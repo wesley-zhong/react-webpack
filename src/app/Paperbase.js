@@ -162,7 +162,6 @@ class Paperbase extends React.Component {
     };
 
     handleDexpan = () => {
-
         console.log("this.state.navExpand", !this.state.navExpand)
         this.setState({navExpand: !this.state.navExpand})
     }

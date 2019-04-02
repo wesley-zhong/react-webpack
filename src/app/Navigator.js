@@ -34,9 +34,9 @@ const categories = [
             {id: '业务单据-form', icon: <PeopleIcon/>, active: true,},
             {id: '拖拽', icon: <DnsRoundedIcon/>, path: "/dnd",},
             {id: 'jqxGrid', icon: <PermMediaOutlinedIcon/>, path: "/jqxGrid"},
-            {id: 'uxCoreForm', icon: <PublicIcon/>,path: "/Uxform"},
-            {id: 'muiForm', icon: <SettingsEthernetIcon/>,path: "/Muiform"},
-            {id: 'ML Kit', icon: <SettingsInputComponentIcon/>,path: "/jqxGrid"},
+            {id: 'uxCoreForm', icon: <PublicIcon/>, path: "/Uxform"},
+            {id: 'muiForm', icon: <SettingsEthernetIcon/>, path: "/Muiform"},
+            {id: 'ML Kit', icon: <SettingsInputComponentIcon/>, path: "/jqxGrid"},
         ],
     },
     {
@@ -122,7 +122,6 @@ class Navigator extends React.Component {
                 }
             }
         }
-
         this.setState({});
     }
 
