@@ -6,20 +6,12 @@ import Drawer from '@material-ui/core/Drawer';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
-import List from '@material-ui/core/List';
 import Typography from '@material-ui/core/Typography';
-import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
-import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
-import ChevronRightIcon from '@material-ui/icons/ChevronRight';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
-import InboxIcon from '@material-ui/icons/MoveToInbox';
-import MailIcon from '@material-ui/icons/Mail';
 import Navigator from "./Navigator";
 import {rootRoute} from "./routes";
+import FullWidthTabs from "./DragTabs"
 
 let theme = createMuiTheme({
     typography: {
@@ -144,7 +136,7 @@ const styles = {
         display: 'flex',
     },
     appBar: {
-           transition: theme.transitions.create(['margin', 'width'], {
+        transition: theme.transitions.create(['margin', 'width'], {
             easing: theme.transitions.easing.sharp,
             duration: theme.transitions.duration.leavingScreen,
         }),
@@ -207,29 +199,29 @@ const styles = {
 
 class PersistentDrawerLeft extends React.Component {
     state = {
-        open: false,
+        open: true,
         tabs: [],
-        activeIndex :0
+        activeIndex: 0
     };
 
     handleDrawerOpen = () => {
-        this.setState({ open: true });
+        this.setState({open: true});
     };
 
     handleDrawerClose = () => {
-        this.setState({ open: false });
+        this.setState({open: false});
     };
 
 
-    handleNavigateClick(menuItem){
+    handleNavigateClick(menuItem) {
         const {tabs} = this.state;
         let activeIndex = tabs.length;
-        for(var i = 0 ; i < tabs.length; ++i){
+        for (var i = 0; i < tabs.length; ++i) {
             tabs[i].active = false;
-            if(tabs[i].id == menuItem.id){
+            if (tabs[i].id == menuItem.id) {
                 tabs[i].active = true;
                 activeIndex = i;
-                this.setState({activeIndex:activeIndex})
+                this.setState({activeIndex: activeIndex})
                 return;
             }
         }
@@ -237,100 +229,97 @@ class PersistentDrawerLeft extends React.Component {
         let component = this.getPathComponent(menuItem.path);
         menuItem.component = component;
         tabs.push(menuItem)
-        this.setState({tabs:tabs,activeIndex:activeIndex})
+        this.setState({tabs: tabs, activeIndex: activeIndex})
     }
 
-    getPathComponent(path){
-        for(var i = 0 ; i < rootRoute.length; ++i){
-            if(rootRoute[i].path == path){
+    getPathComponent(path) {
+        for (var i = 0; i < rootRoute.length; ++i) {
+            if (rootRoute[i].path == path) {
                 return rootRoute[i].component;
             }
         }
         return null;
     }
 
-    handleTabSelect(index){
+    handleTabSelect(index) {
         const {tabs, activeIndex} = this.state;
-        if(index == activeIndex)
-            return ;
-        if(index == tabs.length){
+        if (index == activeIndex)
+            return;
+        if (index == tabs.length) {
             index = tabs.length - 1;
         }
-        this.setState({activeIndex:index})
+        this.setState({activeIndex: index})
     }
 
-    handelClose(index){
+    handelClose(index) {
         console.log("nnnnnnnn  close index ", index)
         const {tabs} = this.state;
         tabs.splice(index, 1)
-        let actIndex  = tabs.length -1;
-        if(index < actIndex ){
+        let actIndex = tabs.length - 1;
+        if (index < actIndex) {
             actIndex = index
         }
-        this.setState({tabs:tabs,activeIndex:actIndex})
+        this.setState({tabs: tabs, activeIndex: actIndex})
     }
 
 
-
-
-
     render() {
-        const { classes} = this.props;
-        const { open } = this.state;
+        const {classes} = this.props;
+        const {open, tabs, activeIndex} = this.state;
+        {
+            console.log("bbbbbbbbbbbbbbbbbbbbbbbb  open = ", open)
+        }
         return (
-            <MuiThemeProvider theme={theme}>
             <div className={classes.root}>
-                <CssBaseline />
+                <MuiThemeProvider theme={theme}>
 
-                <AppBar
-                    position="fixed"
-                    className={classNames(classes.appBar, {
-                        [classes.appBarShift]: open,
-                    })}
-                >
-                    <Toolbar disableGutters={!open}>
-                        <IconButton
-                            color="inherit"
-                            aria-label="Open drawer"
-                            onClick={this.handleDrawerOpen}
-                            className={classNames(classes.menuButton, open && classes.hide)}
-                        >
-                            <MenuIcon />
-                        </IconButton>
-                        <Typography variant="h6" color="inherit" noWrap>
-                            Persistent drawer
-                        </Typography>
-                    </Toolbar>
-                </AppBar>
-             </div>
-                <Drawer
-                    className={classes.drawer}
-                    variant="persistent"
-                    anchor="left"
-                    open={open}
-                    classes={{
-                        paper: classes.drawerPaper,
-                    }}
-                >
-                    <Navigator PaperProps={{style: {width: drawerWidth}}} onMenuItemClick={this.handleNavigateClick.bind(this)} handleDrawerClose ={this.handleDrawerClose.bind(this)}/>
-                </Drawer>
+                    <CssBaseline/>
+                    <AppBar
+                        position="fixed"
+                        className={classNames(classes.appBar, {
+                            [classes.appBarShift]: open,
+                        })}
+                    >
+                        <Toolbar disableGutters={!open}>
+                            <IconButton
+                                color="inherit"
+                                aria-label="Open drawer"
+                                onClick={this.handleDrawerOpen}
+                                className={classNames(classes.menuButton, open && classes.hide)}
+                            >
+                                <MenuIcon/>
+                            </IconButton>
+                            <Typography variant="h6" color="inherit" noWrap>
+                                Persistent drawer
+                            </Typography>
+                        </Toolbar>
+                    </AppBar>
+
+                    <Drawer
+                        className={classes.drawer}
+                        variant="persistent"
+                        anchor="left"
+                        open={open}
+                        classes={{
+                            paper: classes.drawerPaper,
+                        }}
+                    >
+                        <Navigator PaperProps={{style: {width: drawerWidth}}}
+                                   onMenuItemClick={this.handleNavigateClick.bind(this)}
+                                   handleDrawerClose={this.handleDrawerClose.bind(this)}/>
+                    </Drawer>
+                </MuiThemeProvider>
                 <main
                     className={classNames(classes.content, {
                         [classes.contentShift]: open,
                     })}
                 >
-                    <div className={classes.drawerHeader} />
-                    <Typography paragraph>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-
-                    </Typography>
-                    <Typography paragraph>
-                        Consequat mauris nunc congue nisi vitae suscipit. Fringilla est ullamcorper eget nulla
-
-                    </Typography>
+                    <div className={classes.drawerHeader}/>
+                    <FullWidthTabs tabs={tabs} activeIndex={activeIndex}
+                                   handleTabSelect={this.handleTabSelect.bind(this)}
+                                   handelClose={this.handelClose.bind(this)}/>
                 </main>
-
-            </MuiThemeProvider>
+            </div>
         );
     }
 }

@@ -139,8 +139,8 @@ class Navigator extends React.Component {
                         >
                            aa
                         </ListItemText>
-                        <IconButton >
-                            <ChevronLeftIcon  onClick={handleDrawerClose} />
+                        <IconButton onClick={handleDrawerClose}  >
+                            <ChevronLeftIcon />
                         </IconButton>
                     </ListItem>
                     <ListItem className={classNames(classes.item, classes.itemCategory)}>
