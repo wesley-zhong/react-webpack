@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import {MuiThemeProvider, withStyles} from '@material-ui/core/styles';
+import {createMuiTheme, MuiThemeProvider, withStyles} from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import AppBar from '@material-ui/core/AppBar';
@@ -18,83 +18,32 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import InboxIcon from '@material-ui/icons/MoveToInbox';
 import MailIcon from '@material-ui/icons/Mail';
+import Navigator from "./Paperbase";
+import {rootRoute} from "./routes";
 
-const drawerWidth = 240;
-
-const styles = theme => ({
-
+let theme = createMuiTheme({
+    typography: {
         useNextVariants: true,
         h5: {
             fontWeight: 500,
             fontSize: 26,
             letterSpacing: 0.5,
         },
-
-
+    },
+    palette: {
         primary: {
             light: '#63ccff',
             main: '#009be5',
             dark: '#006db3',
         },
-
+    },
     shape: {
         borderRadius: 8,
     },
+});
 
-    root: {
-        display: 'flex',
-    },
-    appBar: {
-        transition: theme.transitions.create(['margin', 'width'], {
-            easing: theme.transitions.easing.sharp,
-            duration: theme.transitions.duration.leavingScreen,
-        }),
-    },
-    appBarShift: {
-        width: `calc(100% - ${drawerWidth}px)`,
-        marginLeft: drawerWidth,
-        transition: theme.transitions.create(['margin', 'width'], {
-            easing: theme.transitions.easing.easeOut,
-            duration: theme.transitions.duration.enteringScreen,
-        }),
-    },
-    menuButton: {
-        marginLeft: 12,
-        marginRight: 20,
-    },
-    hide: {
-        display: 'none',
-    },
-    drawer: {
-        width: drawerWidth,
-        flexShrink: 0,
-    },
-    drawerPaper: {
-        width: drawerWidth,
-    },
-    drawerHeader: {
-        display: 'flex',
-        alignItems: 'center',
-        padding: '0 8px',
-        ...theme.mixins.toolbar,
-        justifyContent: 'flex-end',
-    },
-    content: {
-        flexGrow: 1,
-        padding: theme.spacing.unit * 3,
-        transition: theme.transitions.create('margin', {
-            easing: theme.transitions.easing.sharp,
-            duration: theme.transitions.duration.leavingScreen,
-        }),
-        marginLeft: -drawerWidth,
-    },
-    contentShift: {
-        transition: theme.transitions.create('margin', {
-            easing: theme.transitions.easing.easeOut,
-            duration: theme.transitions.duration.enteringScreen,
-        }),
-        marginLeft: 0,
-    },
+theme = {
+    ...theme,
     overrides: {
         MuiDrawer: {
             paper: {
@@ -175,17 +124,92 @@ const styles = theme => ({
             },
         },
     },
+    props: {
+        MuiTab: {
+            disableRipple: true,
+        },
+    },
+    mixins: {
+        ...theme.mixins,
+        toolbar: {
+            minHeight: 48,
+        },
+    },
+};
 
+const drawerWidth = 240;
 
+const styles = {
+    root: {
+        display: 'flex',
+    },
+    appBar: {
+           transition: theme.transitions.create(['margin', 'width'], {
+            easing: theme.transitions.easing.sharp,
+            duration: theme.transitions.duration.leavingScreen,
+        }),
+    },
+    appBarShift: {
+        width: `calc(100% - ${drawerWidth}px)`,
+        marginLeft: drawerWidth,
+        transition: theme.transitions.create(['margin', 'width'], {
+            easing: theme.transitions.easing.easeOut,
+            duration: theme.transitions.duration.enteringScreen,
+        }),
+    },
+    menuButton: {
+        marginLeft: 12,
+        marginRight: 20,
+    },
+    hide: {
+        display: 'none',
+    },
+    drawer: {
+        width: drawerWidth,
+        flexShrink: 0,
+    },
+    drawerPaper: {
+        width: drawerWidth,
+    },
+    drawerHeader: {
+        display: 'flex',
+        alignItems: 'center',
+        padding: '0 8px',
+        ...theme.mixins.toolbar,
+        justifyContent: 'flex-end',
+    },
+    content: {
+        flexGrow: 1,
+        padding: theme.spacing.unit * 3,
+        transition: theme.transitions.create('margin', {
+            easing: theme.transitions.easing.sharp,
+            duration: theme.transitions.duration.leavingScreen,
+        }),
+        marginLeft: -drawerWidth,
+    },
+    contentShift: {
+        transition: theme.transitions.create('margin', {
+            easing: theme.transitions.easing.easeOut,
+            duration: theme.transitions.duration.enteringScreen,
+        }),
+        marginLeft: 0,
+    },
+    appContent: {
+        flex: 1,
+        display: 'flex',
+        flexDirection: 'column',
+    },
+    mainContent: {
+        flex: 1,
+        background: '#eaeff1',
+    },
+};
 
-
-
-
-});
-
-class MainFrame extends React.Component {
+class PersistentDrawerLeft extends React.Component {
     state = {
         open: false,
+        tabs: [],
+        activeIndex :0
     };
 
     handleDrawerOpen = () => {
@@ -196,14 +220,79 @@ class MainFrame extends React.Component {
         this.setState({ open: false });
     };
 
-    render() {
-        const { classes, theme } = this.props;
-        const { open } = this.state;
 
+
+    handleDrawerToggle = () => {
+        console.log("aaaaaaaaaa", !this.state.mobileOpen)
+        this.setState(state => ({mobileOpen: !state.mobileOpen}));
+    };
+
+    handleDexpan = () => {
+        console.log("this.state.navExpand", !this.state.navExpand)
+        this.setState({navExpand: !this.state.navExpand})
+    }
+
+    handleNavigateClick(menuItem){
+        const {tabs} = this.state;
+        let activeIndex = tabs.length;
+        for(var i = 0 ; i < tabs.length; ++i){
+            tabs[i].active = false;
+            if(tabs[i].id == menuItem.id){
+                tabs[i].active = true;
+                activeIndex = i;
+                this.setState({activeIndex:activeIndex})
+                return;
+            }
+        }
+
+        let component = this.getPathComponent(menuItem.path);
+        menuItem.component = component;
+        tabs.push(menuItem)
+        this.setState({tabs:tabs,activeIndex:activeIndex})
+    }
+
+    getPathComponent(path){
+        for(var i = 0 ; i < rootRoute.length; ++i){
+            if(rootRoute[i].path == path){
+                return rootRoute[i].component;
+            }
+        }
+        return null;
+    }
+
+    handleTabSelect(index){
+        const {tabs, activeIndex} = this.state;
+        if(index == activeIndex)
+            return ;
+        if(index == tabs.length){
+            index = tabs.length - 1;
+        }
+        this.setState({activeIndex:index})
+    }
+
+    handelClose(index){
+        console.log("nnnnnnnn  close index ", index)
+        const {tabs} = this.state;
+        tabs.splice(index, 1)
+        let actIndex  = tabs.length -1;
+        if(index < actIndex ){
+            actIndex = index
+        }
+        this.setState({tabs:tabs,activeIndex:actIndex})
+    }
+
+
+
+
+
+    render() {
+        const { classes} = this.props;
+        const { open } = this.state;
         return (
             <MuiThemeProvider theme={theme}>
             <div className={classes.root}>
                 <CssBaseline />
+
                 <AppBar
                     position="fixed"
                     className={classNames(classes.appBar, {
@@ -224,6 +313,7 @@ class MainFrame extends React.Component {
                         </Typography>
                     </Toolbar>
                 </AppBar>
+             </div>
                 <Drawer
                     className={classes.drawer}
                     variant="persistent"
@@ -233,29 +323,30 @@ class MainFrame extends React.Component {
                         paper: classes.drawerPaper,
                     }}
                 >
-                    <div className={classes.drawerHeader}>
-                        <IconButton onClick={this.handleDrawerClose}>
-                            {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
-                        </IconButton>
-                    </div>
-                    <Divider />
-                    <List>
-                        {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-                            <ListItem button key={text}>
-                                <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-                                <ListItemText primary={text} />
-                            </ListItem>
-                        ))}
-                    </List>
-                    <Divider />
-                    <List>
-                        {['All mail', 'Trash', 'Spam'].map((text, index) => (
-                            <ListItem button key={text}>
-                                <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-                                <ListItemText primary={text} />
-                            </ListItem>
-                        ))}
-                    </List>
+                    <Navigator PaperProps={{style: {width: drawerWidth}}} onMenuItemClick={this.handleNavigateClick.bind(this)}/>
+                    {/*<div className={classes.drawerHeader}>*/}
+                        {/*<IconButton onClick={this.handleDrawerClose}>*/}
+                            {/*{theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}*/}
+                        {/*</IconButton>*/}
+                    {/*</div>*/}
+                    {/*<Divider />*/}
+                    {/*<List>*/}
+                        {/*{['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (*/}
+                            {/*<ListItem button key={text}>*/}
+                                {/*<ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>*/}
+                                {/*<ListItemText primary={text} />*/}
+                            {/*</ListItem>*/}
+                        {/*))}*/}
+                    {/*</List>*/}
+                    {/*<Divider />*/}
+                    {/*<List>*/}
+                        {/*{['All mail', 'Trash', 'Spam'].map((text, index) => (*/}
+                            {/*<ListItem button key={text}>*/}
+                                {/*<ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>*/}
+                                {/*<ListItemText primary={text} />*/}
+                            {/*</ListItem>*/}
+                        {/*))}*/}
+                    {/*</List>*/}
                 </Drawer>
                 <main
                     className={classNames(classes.content, {
@@ -265,38 +356,21 @@ class MainFrame extends React.Component {
                     <div className={classes.drawerHeader} />
                     <Typography paragraph>
                         Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-                        incididunt ut labore et dolore magna aliqua. Rhoncus dolor purus non enim praesent
-                        elementum facilisis leo vel. Risus at ultrices mi tempus imperdiet. Semper risus in
-                        hendrerit gravida rutrum quisque non tellus. Convallis convallis tellus id interdum
-                        velit laoreet id donec ultrices. Odio morbi quis commodo odio aenean sed adipiscing.
-                        Amet nisl suscipit adipiscing bibendum est ultricies integer quis. Cursus euismod quis
-                        viverra nibh cras. Metus vulputate eu scelerisque felis imperdiet proin fermentum leo.
-                        Mauris commodo quis imperdiet massa tincidunt. Cras tincidunt lobortis feugiat vivamus
-                        at augue. At augue eget arcu dictum varius duis at consectetur lorem. Velit sed
-                        ullamcorper morbi tincidunt. Lorem donec massa sapien faucibus et molestie ac.
+
                     </Typography>
                     <Typography paragraph>
                         Consequat mauris nunc congue nisi vitae suscipit. Fringilla est ullamcorper eget nulla
-                        facilisi etiam dignissim diam. Pulvinar elementum integer enim neque volutpat ac
-                        tincidunt. Ornare suspendisse sed nisi lacus sed viverra tellus. Purus sit amet volutpat
-                        consequat mauris. Elementum eu facilisis sed odio morbi. Euismod lacinia at quis risus
-                        sed vulputate odio. Morbi tincidunt ornare massa eget egestas purus viverra accumsan in.
-                        In hendrerit gravida rutrum quisque non tellus orci ac. Pellentesque nec nam aliquam sem
-                        et tortor. Habitant morbi tristique senectus et. Adipiscing elit duis tristique
-                        sollicitudin nibh sit. Ornare aenean euismod elementum nisi quis eleifend. Commodo
-                        viverra maecenas accumsan lacus vel facilisis. Nulla posuere sollicitudin aliquam
-                        ultrices sagittis orci a.
+
                     </Typography>
                 </main>
-            </div>
+
             </MuiThemeProvider>
         );
     }
 }
 
-MainFrame.propTypes = {
+PersistentDrawerLeft.propTypes = {
     classes: PropTypes.object.isRequired,
-    theme: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles, { withTheme: true })(MainFrame);
+export default withStyles(styles)(PersistentDrawerLeft);

@@ -131,7 +131,7 @@ class Navigator extends React.Component {
             <Drawer variant="permanent" {...other} >
                 <List disablePadding>
                     <ListItem className={classNames(classes.firebase, classes.item, classes.itemCategory)}>
-                        简易云平台
+                     aa
                     </ListItem>
                     <ListItem className={classNames(classes.item, classes.itemCategory)}>
                         <ListItemIcon>
@@ -142,7 +142,7 @@ class Navigator extends React.Component {
                                 primary: classes.itemPrimary,
                             }}
                         >
-                            系统菜单
+                            bb
                         </ListItemText>
                     </ListItem>
                     {categories.map(({id, expand, children}) => (
