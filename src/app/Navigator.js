@@ -128,7 +128,7 @@ class Navigator extends React.Component {
     render() {
         const {classes, onMenuItemClick, ...other} = this.props;
         return (
-            <Drawer variant="permanent" {...other} >
+
                 <List disablePadding>
                     <ListItem className={classNames(classes.firebase, classes.item, classes.itemCategory)}>
                      aa
@@ -191,7 +191,7 @@ class Navigator extends React.Component {
                         </React.Fragment>
                     ))}
                 </List>
-            </Drawer>
+
         );
     }
 }
