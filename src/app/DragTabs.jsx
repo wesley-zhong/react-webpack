@@ -57,7 +57,7 @@ class FullWidthTabs extends React.Component {
         const {classes, tabs, theme, activeIndex} = this.props;
         let t = this;
         return (
-            <div className={classes.root}>
+            <div>
                 <AppBar position="static" color="default">
                     <Tabs
                         value={activeIndex}

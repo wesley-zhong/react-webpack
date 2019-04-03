@@ -1,5 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import AppBar from '@material-ui/core/AppBar';
+import Toolbar from '@material-ui/core/Toolbar';
 import {MuiThemeProvider, createMuiTheme, withStyles} from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Hidden from '@material-ui/core/Hidden';
@@ -123,6 +125,49 @@ theme = {
             minHeight: 48,
         },
     },
+    appBar: {
+        transition: theme.transitions.create(['margin', 'width'], {
+            easing: theme.transitions.easing.sharp,
+            duration: theme.transitions.duration.leavingScreen,
+        }),
+    },
+    appBarShift: {
+        width: `calc(100% - ${drawerWidth}px)`,
+        marginLeft: drawerWidth,
+        transition: theme.transitions.create(['margin', 'width'], {
+            easing: theme.transitions.easing.easeOut,
+            duration: theme.transitions.duration.enteringScreen,
+        }),
+    },
+    hide: {
+        display: 'none',
+    },
+    drawerPaper: {
+        width: drawerWidth,
+    },
+    drawerHeader: {
+        display: 'flex',
+        alignItems: 'center',
+        padding: '0 8px',
+        ...theme.mixins.toolbar,
+        justifyContent: 'flex-end',
+    },
+    content: {
+        flexGrow: 1,
+        padding: theme.spacing.unit * 3,
+        transition: theme.transitions.create('margin', {
+            easing: theme.transitions.easing.sharp,
+            duration: theme.transitions.duration.leavingScreen,
+        }),
+        marginLeft: -drawerWidth,
+    },
+    contentShift: {
+        transition: theme.transitions.create('margin', {
+            easing: theme.transitions.easing.easeOut,
+            duration: theme.transitions.duration.enteringScreen,
+        }),
+        marginLeft: 0,
+    },
 };
 
 const drawerWidth = 256;
@@ -215,14 +260,45 @@ class Paperbase extends React.Component {
         this.setState({tabs:tabs,activeIndex:actIndex})
     }
 
+    handleDrawerOpen = () => {
+        this.setState({ open: true });
+    };
+
+    handleDrawerClose = () => {
+        this.setState({ open: false });
+    };
+
 
     render() {
         const {classes} = this.props;
-        const {tabs, activeIndex} = this.state;
+        const {tabs, activeIndex, open} = this.state;
         return (
             <MuiThemeProvider theme={theme}>
                 <div className={classes.root}>
                     <CssBaseline/>
+
+                    <AppBar
+                        position="fixed"
+                        className={classNames(classes.appBar, {
+                            [classes.appBarShift]: open,
+                        })}
+                    >
+                        <Toolbar disableGutters={!open}>
+                            <IconButton
+                                color="inherit"
+                                aria-label="Open drawer"
+                                onClick={this.handleDrawerOpen}
+                                className={classNames(classes.menuButton, open && classes.hide)}
+                            >
+                                <MenuIcon />
+                            </IconButton>
+                            <Typography variant="h6" color="inherit" noWrap>
+                                Persistent drawer
+                            </Typography>
+                        </Toolbar>
+                    </AppBar>
+
+
                     <nav className={classes.drawer}>
                         <Hidden xsDown implementation="js">
                             <Navigator PaperProps={{style: {width: drawerWidth}}} onMenuItemClick={this.handleNavigateClick.bind(this)}/>

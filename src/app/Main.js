@@ -166,7 +166,7 @@ const styles = {
     drawerHeader: {
         display: 'flex',
         alignItems: 'center',
-        padding: '0 8px',
+
         ...theme.mixins.toolbar,
         justifyContent: 'flex-end',
     },
@@ -314,7 +314,7 @@ class PersistentDrawerLeft extends React.Component {
                         [classes.contentShift]: open,
                     })}
                 >
-                    <div className={classes.drawerHeader}/>
+
                     <FullWidthTabs tabs={tabs} activeIndex={activeIndex}
                                    handleTabSelect={this.handleTabSelect.bind(this)}
                                    handelClose={this.handelClose.bind(this)}/>
