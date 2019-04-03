@@ -221,17 +221,6 @@ class PersistentDrawerLeft extends React.Component {
     };
 
 
-
-    handleDrawerToggle = () => {
-        console.log("aaaaaaaaaa", !this.state.mobileOpen)
-        this.setState(state => ({mobileOpen: !state.mobileOpen}));
-    };
-
-    handleDexpan = () => {
-        console.log("this.state.navExpand", !this.state.navExpand)
-        this.setState({navExpand: !this.state.navExpand})
-    }
-
     handleNavigateClick(menuItem){
         const {tabs} = this.state;
         let activeIndex = tabs.length;
@@ -323,30 +312,7 @@ class PersistentDrawerLeft extends React.Component {
                         paper: classes.drawerPaper,
                     }}
                 >
-                    <Navigator PaperProps={{style: {width: drawerWidth}}} onMenuItemClick={this.handleNavigateClick.bind(this)}/>
-                    {/*<div className={classes.drawerHeader}>*/}
-                        {/*<IconButton onClick={this.handleDrawerClose}>*/}
-                            {/*{theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}*/}
-                        {/*</IconButton>*/}
-                    {/*</div>*/}
-                    {/*<Divider />*/}
-                    {/*<List>*/}
-                        {/*{['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (*/}
-                            {/*<ListItem button key={text}>*/}
-                                {/*<ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>*/}
-                                {/*<ListItemText primary={text} />*/}
-                            {/*</ListItem>*/}
-                        {/*))}*/}
-                    {/*</List>*/}
-                    {/*<Divider />*/}
-                    {/*<List>*/}
-                        {/*{['All mail', 'Trash', 'Spam'].map((text, index) => (*/}
-                            {/*<ListItem button key={text}>*/}
-                                {/*<ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>*/}
-                                {/*<ListItemText primary={text} />*/}
-                            {/*</ListItem>*/}
-                        {/*))}*/}
-                    {/*</List>*/}
+                    <Navigator PaperProps={{style: {width: drawerWidth}}} onMenuItemClick={this.handleNavigateClick.bind(this)} handleDrawerClose ={this.handleDrawerClose.bind(this)}/>
                 </Drawer>
                 <main
                     className={classNames(classes.content, {

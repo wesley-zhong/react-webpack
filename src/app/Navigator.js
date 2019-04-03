@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import {withStyles} from '@material-ui/core/styles';
 import Divider from '@material-ui/core/Divider';
-import Drawer from '@material-ui/core/Drawer';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
@@ -21,6 +20,8 @@ import PhonelinkSetupIcon from '@material-ui/icons/PhonelinkSetup';
 import Collapse from '@material-ui/core/Collapse';
 import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
+import IconButton from '@material-ui/core/IconButton';
+import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import {Component} from "refast";
 import grey from '@material-ui/core/colors/grey'
 
@@ -126,12 +127,21 @@ class Navigator extends React.Component {
     }
 
     render() {
-        const {classes, onMenuItemClick, ...other} = this.props;
+        const {classes, onMenuItemClick, handleDrawerClose,theme,...other} = this.props;
         return (
 
                 <List disablePadding>
                     <ListItem className={classNames(classes.firebase, classes.item, classes.itemCategory)}>
-                     aa
+                        <ListItemText
+                            classes={{
+                                primary: classes.itemPrimary,
+                            }}
+                        >
+                           aa
+                        </ListItemText>
+                        <IconButton >
+                            <ChevronLeftIcon  onClick={handleDrawerClose} />
+                        </IconButton>
                     </ListItem>
                     <ListItem className={classNames(classes.item, classes.itemCategory)}>
                         <ListItemIcon>
