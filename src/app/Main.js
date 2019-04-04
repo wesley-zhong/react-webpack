@@ -9,6 +9,11 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
+import Tooltip from '@material-ui/core/Tooltip';
+import HelpIcon from '@material-ui/icons/Help';
+import MailIcon from '@material-ui/icons/Mail';
+import NotificationsIcon from '@material-ui/icons/Notifications';
+import Badge from '@material-ui/core/Badge';
 import Navigator from "./Navigator";
 import {rootRoute} from "./routes";
 import FullWidthTabs from "./DragTabs"
@@ -195,6 +200,9 @@ const styles = {
         flex: 1,
         background: '#eaeff1',
     },
+    grow: {
+        flexGrow: 1,
+    }
 };
 
 class PersistentDrawerLeft extends React.Component {
@@ -286,6 +294,24 @@ class PersistentDrawerLeft extends React.Component {
                             <Typography variant="h6" color="inherit" noWrap>
                                 Persistent drawer
                             </Typography>
+
+                            <div className={classes.grow} />
+                            <IconButton color="inherit">
+                                <Badge badgeContent={4} color="secondary">
+                                    <MailIcon />
+                                </Badge>
+                            </IconButton>
+
+                            <IconButton color="inherit">
+                                <Badge badgeContent={17} color="secondary">
+                                    <NotificationsIcon />
+                                </Badge>
+                            </IconButton>
+                            <Tooltip title="Help">
+                                <IconButton color="inherit">
+                                    <HelpIcon />
+                                </IconButton>
+                            </Tooltip>
                         </Toolbar>
                     </AppBar>
 
