@@ -124,7 +124,7 @@ theme = {
     mixins: {
         ...theme.mixins,
         toolbar: {
-            minHeight: 48,
+            minHeight: 58,
         },
     },
 };
@@ -164,15 +164,15 @@ const styles = {
         width: drawerWidth,
     },
     drawerHeader: {
-        display: 'flex',
         alignItems: 'center',
-
-        ...theme.mixins.toolbar,
+        padding: '0 8px',
+        minHeight: 38,
         justifyContent: 'flex-end',
     },
     content: {
         flexGrow: 1,
-        padding: theme.spacing.unit * 3,
+        marginTop: 16,
+
         transition: theme.transitions.create('margin', {
             easing: theme.transitions.easing.sharp,
             duration: theme.transitions.duration.leavingScreen,
@@ -211,7 +211,6 @@ class PersistentDrawerLeft extends React.Component {
     handleDrawerClose = () => {
         this.setState({open: false});
     };
-
 
     handleNavigateClick(menuItem) {
         const {tabs} = this.state;
@@ -252,7 +251,6 @@ class PersistentDrawerLeft extends React.Component {
     }
 
     handelClose(index) {
-        console.log("nnnnnnnn  close index ", index)
         const {tabs} = this.state;
         tabs.splice(index, 1)
         let actIndex = tabs.length - 1;
@@ -266,13 +264,9 @@ class PersistentDrawerLeft extends React.Component {
     render() {
         const {classes} = this.props;
         const {open, tabs, activeIndex} = this.state;
-        {
-            console.log("bbbbbbbbbbbbbbbbbbbbbbbb  open = ", open)
-        }
         return (
             <div className={classes.root}>
                 <MuiThemeProvider theme={theme}>
-
                     <CssBaseline/>
                     <AppBar
                         position="fixed"
@@ -308,17 +302,19 @@ class PersistentDrawerLeft extends React.Component {
                                    onMenuItemClick={this.handleNavigateClick.bind(this)}
                                    handleDrawerClose={this.handleDrawerClose.bind(this)}/>
                     </Drawer>
-                </MuiThemeProvider>
+
                 <main
                     className={classNames(classes.content, {
                         [classes.contentShift]: open,
                     })}
                 >
-
+                    <div className={classes.drawerHeader}>
+                    </div>
                     <FullWidthTabs tabs={tabs} activeIndex={activeIndex}
                                    handleTabSelect={this.handleTabSelect.bind(this)}
                                    handelClose={this.handelClose.bind(this)}/>
                 </main>
+                </MuiThemeProvider>
             </div>
         );
     }

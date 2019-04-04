@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {withStyles} from '@material-ui/core/styles';
-import SwipeableViews from 'react-swipeable-views';
 import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
@@ -10,7 +9,7 @@ import WdTabpaneTab from '../components/wd_tabpane_tab/WdTabpaneTab'
 
 function TabContainer({children, dir}) {
     return (
-        <Typography component="div" dir={dir}>
+        <Typography component="div" dir={dir} variant='body2'>
             {children}
         </Typography>
     );
@@ -23,7 +22,7 @@ TabContainer.propTypes = {
 
 const styles = theme => ({
     root: {
-        backgroundColor: theme.palette.background.paper,
+        backgroundColor: theme.palette.background.default,
     },
 });
 
@@ -33,7 +32,7 @@ class FullWidthTabs extends React.Component {
     };
 
     handleChange = (event, value) => {
-        const { handleTabSelect } = this.props;
+        const {handleTabSelect} = this.props;
         handleTabSelect(value)
     };
 
@@ -49,7 +48,7 @@ class FullWidthTabs extends React.Component {
 
 
     createTable(tabName, key) {
-        return (<WdTabpaneTab tab={tabName}  index ={key} onClose={this.handelTabClose.bind(this, key)}/>)
+        return (<WdTabpaneTab tab={tabName} index={key} onClose={this.handelTabClose.bind(this, key)}/>)
 
     }
 
@@ -58,26 +57,29 @@ class FullWidthTabs extends React.Component {
         let t = this;
         return (
             <div>
+
                 <AppBar position="static" color="default">
-                    <Tabs
-                        value={activeIndex}
-                        onChange={this.handleChange}
-                        indicatorColor="primary"
-                        textColor="primary"
-                        variant="scrollable"
-                        scrollButtons="auto"
-                    >
-                        {
-                            tabs.map(function (item, key) {
-                                return <Tab key={key} label={t.createTable(item.id, key)}/>
-                            })
-                        }
-                    </Tabs>
+                    {
+                        tabs.length > 0 ?
+                            <Tabs
+                                value={activeIndex}
+                                onChange={this.handleChange}
+                                indicatorColor="primary"
+                                textColor="primary"
+                                variant="scrollable"
+                                scrollButtons="auto"
+                            >
+                                {
+                                    tabs.map(function (item, key) {
+                                        return <Tab key={key} label={t.createTable(item.id, key)}/>
+                                    })
+                                }
+                            </Tabs> : ""
+                    }
                 </AppBar>
                 {
                     tabs.length > 0 ?
                         <TabContainer dir={theme.direction}>{tabs[activeIndex].component}</TabContainer> : ""
-
                 }
             </div>
         );

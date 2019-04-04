@@ -45,4 +45,4 @@ class MyPage extends  Component {
         )
     }
 }
-export  default  withRouter(MyPage)
+export  default  MyPage
