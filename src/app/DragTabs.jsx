@@ -77,8 +77,6 @@ class FullWidthTabs extends React.Component {
                     }
                 </AppBar>
                 {
-                   // tabs.length > 0 ?
-                     //   <TabContainer dir={theme.direction}>{tabs[activeIndex].component}</TabContainer> : ""
                     tabs.map(function (item, key) {
                         return (
                             activeIndex === key && <TabContainer dir={theme.direction}  key = {key}>{tabs[key].component}</TabContainer>
