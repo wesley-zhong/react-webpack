@@ -71,7 +71,7 @@ const styles = theme => ({
         paddingBottom: 16,
     },
     firebase: {
-        fontSize: 44,
+        fontSize: 24,
         paddingTop: 16,
         paddingBottom: 16,
         fontFamily: theme.typography.fontFamily,
@@ -93,6 +93,10 @@ const styles = theme => ({
         '&$textDense': {
             fontSize: theme.typography.fontSize,
         },
+    },
+    itemHeader:{
+        color: 'inherit',
+        fontSize:'inherit'
     },
     textDense: {},
     divider: {
@@ -135,11 +139,12 @@ class Navigator extends React.Component {
         return (
 
                 <List disablePadding>
-                    <ListItem className={classNames(classes.firebase,)}>
+                    <ListItem className={classNames(classes.firebase, classes.item, classes.itemCategory)}>
                         <ListItemText
                             classes={{
-                                primary: classes.categoryHeaderPrimary,
+                                primary: classes.itemHeader,
                             }}
+
                         >
                           简逸云平台
                         </ListItemText>
@@ -147,6 +152,8 @@ class Navigator extends React.Component {
                             <ChevronLeftIcon />
                         </IconButton>
                     </ListItem>
+
+
                     <ListItem className={classNames(classes.item, classes.itemCategory)}>
                         <ListItemIcon>
                             <HomeIcon/>
