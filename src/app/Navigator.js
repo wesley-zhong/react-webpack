@@ -32,7 +32,7 @@ const categories = [
         id: '业务单据',
         expand: true,
         children: [
-            {id: '业务单据-form', icon: <PeopleIcon/>, active: true,},
+            {id: '业务单据', icon: <PeopleIcon/>, active: true,},
             {id: '拖拽', icon: <DnsRoundedIcon/>, path: "/dnd",},
             {id: 'jqxGrid', icon: <PermMediaOutlinedIcon/>, path: "/jqxGrid"},
             {id: 'uxCoreForm', icon: <PublicIcon/>, path: "/Uxform"},
@@ -71,9 +71,13 @@ const styles = theme => ({
         paddingBottom: 16,
     },
     firebase: {
-        fontSize: 24,
+        fontSize: 44,
+        paddingTop: 16,
+        paddingBottom: 16,
         fontFamily: theme.typography.fontFamily,
         color: theme.palette.common.white,
+        backgroundColor: '#232f3e',
+        boxShadow: '0 -1px 0 #404854 inset',
     },
     itemActionable: {
         '&:hover': {
@@ -131,13 +135,13 @@ class Navigator extends React.Component {
         return (
 
                 <List disablePadding>
-                    <ListItem className={classNames(classes.firebase, classes.item, classes.itemCategory)}>
+                    <ListItem className={classNames(classes.firebase,)}>
                         <ListItemText
                             classes={{
-                                primary: classes.itemPrimary,
+                                primary: classes.categoryHeaderPrimary,
                             }}
                         >
-                           aa
+                          简逸云平台
                         </ListItemText>
                         <IconButton onClick={handleDrawerClose}  >
                             <ChevronLeftIcon />
@@ -152,7 +156,7 @@ class Navigator extends React.Component {
                                 primary: classes.itemPrimary,
                             }}
                         >
-                            bb
+                            系统菜单
                         </ListItemText>
                     </ListItem>
                     {categories.map(({id, expand, children}) => (

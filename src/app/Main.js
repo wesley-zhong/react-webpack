@@ -292,7 +292,7 @@ class PersistentDrawerLeft extends React.Component {
                                 <MenuIcon/>
                             </IconButton>
                             <Typography variant="h6" color="inherit" noWrap>
-                                Persistent drawer
+                             what's  this
                             </Typography>
 
                             <div className={classes.grow} />
