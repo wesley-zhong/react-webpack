@@ -48,6 +48,7 @@ class Dnd extends React.Component {
       items: getItems(6),
     };
     this.onDragEnd = this.onDragEnd.bind(this);
+    console.log("vvvvvvvvvvvv", this.props)
   }
 
   onDragEnd(result) {
@@ -107,4 +108,4 @@ class Dnd extends React.Component {
     );
   }
 }
-export   default  Dnd;
+export  default  Dnd;

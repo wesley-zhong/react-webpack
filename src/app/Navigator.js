@@ -33,11 +33,11 @@ const categories = [
         expand: true,
         children: [
             {id: '业务单据', icon: <PeopleIcon/>, active: true,},
-            {id: '拖拽', icon: <DnsRoundedIcon/>, path: "/dnd",},
-            {id: 'jqxGrid', icon: <PermMediaOutlinedIcon/>, path: "/jqxGrid"},
+            {id: '拖拽123', icon: <DnsRoundedIcon/>, path: "/dnd",params:{key2:"aaaa1"}},
+            {id: 'jqxGrid', icon: <PermMediaOutlinedIcon/>, path: "/jqxGrid", params:{key1:"aaaa"}},
             {id: 'uxCoreForm', icon: <PublicIcon/>, path: "/Uxform"},
             {id: 'muiForm', icon: <SettingsEthernetIcon/>, path: "/Muiform"},
-            {id: 'ML Kit', icon: <SettingsInputComponentIcon/>, path: "/jqxGrid"},
+            {id: 'MLKit', icon: <SettingsInputComponentIcon/>, path: "/jqxGrid"},
         ],
     },
     {
@@ -46,7 +46,7 @@ const categories = [
         children: [
             {id: 'Analytics', icon: <SettingsIcon/>},
             {id: 'Performance', icon: <TimerIcon/>},
-            {id: 'Test Lab', icon: <PhonelinkSetupIcon/>},
+            {id: 'TestLab', icon: <PhonelinkSetupIcon/>},
         ],
     },
 ];

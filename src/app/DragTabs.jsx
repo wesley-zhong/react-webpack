@@ -1,4 +1,5 @@
 import React from 'react';
+import {cloneElement} from 'react';
 import PropTypes from 'prop-types';
 import {withStyles} from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
@@ -7,10 +8,13 @@ import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
 import WdTabpaneTab from '../components/wd_tabpane_tab/WdTabpaneTab'
 
-function TabContainer({children, dir}) {
+function TabContainer({children, dir, params}) {
     return (
         <Typography component="div" dir={dir} variant='body2'>
-            {children}
+            {
+                children == null ? cloneElement(children || 'div', params) : ""
+            }
+
         </Typography>
     );
 }
@@ -79,7 +83,8 @@ class FullWidthTabs extends React.Component {
                 {
                     tabs.map(function (item, key) {
                         return (
-                            activeIndex === key && <TabContainer dir={theme.direction}  key = {key}>{tabs[key].component}</TabContainer>
+                            activeIndex === key && <TabContainer dir={theme.direction} params={item.params}
+                                                                 key={key}>{tabs[key].component}</TabContainer>
                         )
                     })
                 }

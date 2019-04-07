@@ -16,12 +16,12 @@ class WdTabpaneTab extends Component {
             <Grid container
                   spacing={8}
                   direction="row"
-                  justify="space-evenly"
-                  alignItems="center">
-                <Grid item xs={8}>
+                  justify="space-between"
+                  >
+                <Grid item xs={10}>
                     {tab}
                 </Grid>
-                <Grid item  xs = {4} >
+                <Grid item  xs = {2} >
                     <Close fontSize={"small"}  onClick={onClose.bind(t,index)}/>
                 </Grid>
             </Grid>
